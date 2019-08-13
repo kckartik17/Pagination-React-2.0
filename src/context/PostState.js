@@ -3,12 +3,14 @@ import axios from "axios";
 import PostContext from "./postContext";
 import PostReducer from "./postReducer";
 
-import { GET_POSTS, SET_LOADING } from "./types";
+import { GET_POSTS, SET_LOADING, SET_CURRENT_PAGE } from "./types";
 
 const PostState = props => {
   const initialState = {
     posts: [],
-    loading: false
+    loading: false,
+    currentPage: 1,
+    postsPerPage: 10
   };
 
   const [state, dispatch] = useReducer(PostReducer, initialState);
@@ -23,6 +25,13 @@ const PostState = props => {
     });
   };
 
+  const setCurrentPage = number => {
+    dispatch({
+      type: SET_CURRENT_PAGE,
+      payload: number
+    });
+  };
+
   const setLoading = () => dispatch({ type: SET_LOADING });
 
   return (
@@ -30,8 +39,11 @@ const PostState = props => {
       value={{
         posts: state.posts,
         loading: state.loading,
+        currentPage: state.currentPage,
+        postsPerPage: state.postsPerPage,
         setLoading,
-        fetchPosts
+        fetchPosts,
+        setCurrentPage
       }}
     >
       {props.children}

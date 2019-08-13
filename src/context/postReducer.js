@@ -1,4 +1,4 @@
-import { GET_POSTS, SET_LOADING } from "./types";
+import { GET_POSTS, SET_LOADING, SET_CURRENT_PAGE } from "./types";
 
 export default (state, action) => {
   switch (action.type) {
@@ -7,6 +7,12 @@ export default (state, action) => {
         ...state,
         posts: action.payload,
         loading: false
+      };
+
+    case SET_CURRENT_PAGE:
+      return {
+        ...state,
+        currentPage: action.payload
       };
 
     case SET_LOADING:
